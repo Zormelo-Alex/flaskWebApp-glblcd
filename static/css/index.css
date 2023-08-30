@@ -1,11 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: url("");
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jip-GO3upj8zA_0CimLQawHaEK%26pid%3DApi&f=1&ipt=5048fa636b2901523b5a7a2c95d0b30e35dce5bef270c45abf26238031e27ccd&ipo=images");
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: 100vh;
 }
 
