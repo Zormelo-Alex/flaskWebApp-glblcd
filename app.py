@@ -6,7 +6,7 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
-@app.route("/whereami")
+@app.route("/mail")
 def whreami():
     return "<p>where are you indeed</p>"
 
