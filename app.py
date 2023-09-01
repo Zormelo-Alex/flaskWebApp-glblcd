@@ -2,13 +2,14 @@ from flask import Flask, render_template, request
 from dotenv import load_dotenv
 import os
 from flask_mail import Mail, Message
+import sqlite3
 
 load_dotenv()
 app = Flask(__name__)
 
-# def connect_to_db() -> sqlite3.Connection:
-#     conn = sqlite3.connect('sqlitedb.db')
-#     return conn
+def connect_to_db() -> sqlite3.Connection:
+    conn = sqlite3.connect('database.db')
+    return conn
 
 app.config['MAIL_SERVER']= str(os.getenv('MAIL_SERVER'))
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
@@ -18,19 +19,12 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
 
-# app.config['MAIL_SERVER']='sandbox.smtp.mailtrap.io'
-# app.config['MAIL_PORT'] = 2525
-# app.config['MAIL_USERNAME'] = 'ec8d1dd0ed8211'
-# app.config['MAIL_PASSWORD'] = '0692ad77bd71cc'
-# app.config['MAIL_USE_TLS'] = True
-# app.config['MAIL_USE_SSL'] = False
-
-print(type(app.config['MAIL_SERVER']))
-print(type(app.config['MAIL_PORT']))
-print(type(app.config['MAIL_USERNAME']))
-print(type(app.config['MAIL_PASSWORD']))
-print(type(app.config['MAIL_USE_TLS']))
-print(type(app.config['MAIL_USE_SSL']))
+# print(type(app.config['MAIL_SERVER']))
+# print(type(app.config['MAIL_PORT']))
+# print(type(app.config['MAIL_USERNAME']))
+# print(type(app.config['MAIL_PASSWORD']))
+# print(type(app.config['MAIL_USE_TLS']))
+# print(type(app.config['MAIL_USE_SSL']))
 
 mail = Mail(app)
 
@@ -52,7 +46,7 @@ def signup():
             con = connect_to_db()
             con.execute('''
                 CREATE TABLE IF NOT EXISTS users(
-                    id INT PRIMARY KEY AUTOINCREMENT,
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
                     firstname TEXT NOT NULL,
                     lastname TEXT NOT NULL,
                     email TEXT UNIQUE NOT NULL
@@ -65,7 +59,7 @@ def signup():
             ''',(firstname,lastname,email))
             con.commit()
             con.close()
-            return str("Sucess")
+            return render_template('form.html')
         except sqlite3.Error as e:
             return str(e)
     return render_template('signup.html')
